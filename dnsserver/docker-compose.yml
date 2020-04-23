@@ -1,0 +1,13 @@
+version: '3'
+services:
+  dnsserver:
+    image: "stuvie/bind9"
+    container_name: dnsserver
+    environment:
+      PASS: "cool"
+    volumes:
+      - ./data:/data
+    ports:
+      - "53:53"
+      # - "10000:10000"
+      - "53:53/udp"
