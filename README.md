@@ -18,17 +18,12 @@ In `flamethrower` run the load test
 
 ### Credits ###
 
-[Bind9 for Docker on alpine]
-(https://github.com/resyst-it/docker-bind9)
+[Bind9 for Docker on alpine](https://github.com/resyst-it/docker-bind9)
 
-[Flamethrower-docker]
-(https://github.com/franklouwers/flamethrower-docker)
+[Flamethrower-docker](https://github.com/franklouwers/flamethrower-docker)
 
-[Example domain zone file]
-(https://www.zytrax.com/books/dns/ch6/mydomain.html)
+[Example domain zone file](https://www.zytrax.com/books/dns/ch6/mydomain.html)
 
-[baseimage-docker]
-(https://github.com/phusion/baseimage-docker)
+[baseimage-docker](https://github.com/phusion/baseimage-docker)
 
-[docker-bind with webmin]
-(https://github.com/CosmicQ/docker-bind)
+[docker-bind with webmin](https://github.com/CosmicQ/docker-bind)
