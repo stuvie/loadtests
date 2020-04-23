@@ -1,8 +1,9 @@
 loadtests
 =========
 
-Load tests for various network protocols
+Load tests for various network protocols. Requires docker
 
+	git clone https://github.com/stuvie/loadtests
 
 ### DNS Load Tests ###
 
