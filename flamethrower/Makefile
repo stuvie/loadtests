@@ -5,6 +5,11 @@ image=flamethrower
 rel=latest
 tag=$(org)/$(image):$(rel)
 
+dnsServer=localhost
+dnsProxy=localhost
+dnsServer=pie
+dnsProxy=ops
+
 default:
 	@ echo targets are: build, run, test, push, help, clean
 
@@ -12,28 +17,31 @@ build:
 	docker build --network host -t $(tag) -f Dockerfile .
 
 run:
-	docker run --rm -it --name $(image) --net host $(tag) -t 5 -l 10 -v 1 -p 53 localhost
+	docker run --rm -it --name $(image) --net host $(tag) -t 5 -l 10 -v 1 -p 53 $(dnsServer)
 	echo next you should run: make dnsdist
 
 dnsdist:
-	docker run --rm -it --name $(image) --net host $(tag) -t 5 -l 10 -v 1 -p 9973 localhost
+	docker run --rm -it --name $(image) --net host $(tag) -t 5 -l 10 -v 1 -p 9973 $(dnsProxy)
 	echo next you should run: make coredns
 
 coredns:
-	docker run --rm -it --name $(image) --net host $(tag) -t 5 -l 10 -v 1 -p 9953 localhost
+	docker run --rm -it --name $(image) --net host $(tag) -t 5 -l 10 -v 1 -p 9953 $(dnsProxy)
 	echo next you should run: make coretcp
 
 coretcp:
-	docker run --rm -it --name $(image) --net host $(tag) -t 5 -l 10 -v 1 -p 9963 localhost
+	docker run --rm -it --name $(image) --net host $(tag) -t 5 -l 10 -v 1 -p 9963 $(dnsProxy)
 	
 test:
-	dig +short @localhost server.test.com
-	dig +short @localhost -p 9953 coredns.test.com
-	dig +short @localhost -p 9963 coretcp.test.com
-	dig +short @localhost -p 9973 dnsdist.test.com
-	docker run --rm -it --name $(image) -v `pwd`/data:/data --net host $(tag) -t 5 -q 1 -n 1 -c 1 -v 3 -p 9953 localhost -f /data/queries
-	docker run --rm -it --name $(image) -v `pwd`/data:/data --net host $(tag) -t 5 -q 1 -n 1 -c 1 -v 3 -p 9963 localhost -f /data/queries
-	docker run --rm -it --name $(image) -v `pwd`/data:/data --net host $(tag) -t 5 -q 1 -n 1 -c 1 -v 3 -p 9973 localhost -f /data/queries
+	dig +short @$(dnsServer) server.test.com
+	dig +short @$(dnsProxy) -p 9953 coredns.test.com
+	dig +short @$(dnsProxy) -p 9963 coretcp.test.com
+	dig +short @$(dnsProxy) -p 9973 dnsdist.test.com
+	echo next you should run: make flametest
+
+flametest:
+	docker run --rm -it --name $(image) -v `pwd`/data:/data --net host $(tag) -t 5 -q 1 -n 1 -c 1 -v 3 -p 9953 $(dnsProxy) -f /data/queries
+	docker run --rm -it --name $(image) -v `pwd`/data:/data --net host $(tag) -t 5 -q 1 -n 1 -c 1 -v 3 -p 9963 $(dnsProxy) -f /data/queries
+	docker run --rm -it --name $(image) -v `pwd`/data:/data --net host $(tag) -t 5 -q 1 -n 1 -c 1 -v 3 -p 9973 $(dnsProxy) -f /data/queries
 
 push:
 	docker image push $(tag)

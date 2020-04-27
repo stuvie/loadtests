@@ -5,6 +5,11 @@ image=coredns
 rel=latest
 tag=$(org)/$(image):$(rel)
 
+dnsServer=localhost
+dnsProxy=localhost
+dnsServer=pie
+dnsProxy=ops
+
 default:
 	@ echo targets are: build, run, test, push, help, clean
 
@@ -20,9 +25,10 @@ diag:
 	open http://localhost:9961/health
 
 test:
-	dig +short @localhost -p 9953 coredns.test.com
-	dig +short @localhost -p 9963 coretcp.test.com
-	dig +short @localhost -p 9973 dnsdist.test.com
+	dig +short @$(dnsServer) server.test.com
+	dig +short @$(dnsProxy) -p 9953 coredns.test.com
+	dig +short @$(dnsProxy) -p 9963 coretcp.test.com
+	dig +short @$(dnsProxy) -p 9973 dnsdist.test.com
 
 push:
 	docker image push $(tag)
