@@ -1,0 +1,41 @@
+version: '3'
+services:
+  dnsserver:
+    image: "stuvie/coredns"
+    container_name: coredns
+    environment:
+      PASS: "cool"
+    volumes:
+      - ./Corefile:/data/Corefile
+    ports:
+      - "9953:9953"
+      - "9953:9953/udp"
+      - "9951:8081"
+      - "9950:10000"
+
+  dnsserverTCP:
+    image: "stuvie/coredns"
+    container_name: corednstcp
+    environment:
+      PASS: "cool"
+    volumes:
+      - ./Corefile.tcp:/data/Corefile
+    ports:
+      - "9963:9953"
+      - "9963:9953/udp"
+      - "9961:8081"
+      - "9960:10000"
+
+  dnsdist:
+    image: "uniplug/dnsdist-docker"
+    container_name: dnsdist
+    tty: true
+    stdin_open: true
+    environment:
+      PASS: "cool"
+    volumes:
+      - ./dnsdist.conf:/etc/dnsdist/dnsdist.conf
+    ports:
+      - "9973:53"
+      - "9973:53/udp"
+      - "8870:80"

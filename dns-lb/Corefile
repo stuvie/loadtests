@@ -1,0 +1,15 @@
+. {
+     xpf {
+         rr_type 65422
+     }
+     forward . 10.20.1.26:53 {
+ 	    # note that max_fails=0 disables health checking of the downstream DNS server
+ 	    max_fails 0
+     }
+
+     reload 5s
+     errors
+     # log
+     whoami
+     health :8081
+ }

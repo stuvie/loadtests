@@ -7,9 +7,15 @@ Load tests for various network protocols. Requires docker
 
 ### DNS Load Tests ###
 
-In `dnsserver`, start up ISC bind
+In `dnsserver`, start up ISC bind and test it
 
     docker-compose up
+    make test
+
+In `dns-lb`, start up CoreDNS and DNSdist and test them
+
+    docker-compose up
+    make test
 
 In `flamethrower` run the load test
 
