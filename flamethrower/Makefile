@@ -48,18 +48,16 @@ queryfile:
 	rm q qq
 
 resperf: queryfile
-	echo server on ops test:
-	resperf -d queryfile -s $(dnsProxy) -p 5553
 	echo server test:
-	resperf -d queryfile -s $(dnsServer) -p 5553
+	resperf -d queryfile -p 5553 -s $(dnsServer)
 	echo coredns test:
-	resperf -d queryfile -s $(dnsProxy) -p 9953
+	resperf -d queryfile -p 9953 -s $(dnsProxy)
 	echo coredns TCP test:
-	resperf -d queryfile -s $(dnsProxy) -p 9963
+	resperf -d queryfile -p 9963 -s $(dnsProxy)
 	echo dnsdist test:
-	resperf -d queryfile -s $(dnsProxy) -p 9973
+	resperf -d queryfile -p 9973 -s $(dnsProxy)
 	echo dnsdist ProxyProtocol test:
-	resperf -d queryfile -s $(dnsProxy) -p 9983
+	resperf -d queryfile -p 9983 -s $(dnsProxy)
 
 flametest:
 	docker run --rm -it --name $(image) -v `pwd`/data:/data --net host $(tag) -t 5 -q 1 -n 1 -c 1 -v 3 -p 9953 $(dnsProxy) -f /data/queries

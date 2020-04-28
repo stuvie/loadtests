@@ -34,8 +34,7 @@ services:
     environment:
       PASS: "cool"
     volumes:
-      # - ./dnsdist.conf:/etc/dnsdist/dnsdist.conf
-      - ./dnsdist.ops:/etc/dnsdist/dnsdist.conf
+      - ./dnsdist.conf:/etc/dnsdist/dnsdist.conf
     ports:
       - "9973:53"
       - "9973:53/udp"
