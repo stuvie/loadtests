@@ -1,4 +1,4 @@
-newServer{address="10.20.20.2", order=1}
+newServer{address="10.20.0.1:5553", order=1}
 
 setServerPolicy(firstAvailable)
 

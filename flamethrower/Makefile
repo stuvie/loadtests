@@ -7,7 +7,7 @@ tag=$(org)/$(image):$(rel)
 
 dnsServer=localhost
 dnsProxy=localhost
-dnsServer=pie
+dnsServer=fw
 dnsProxy=ops
 
 default:
@@ -17,7 +17,7 @@ build:
 	docker build --network host -t $(tag) -f Dockerfile .
 
 run:
-	docker run --rm -it --name $(image) --net host $(tag) -t 5 -l 10 -v 1 -p 53 $(dnsServer)
+	docker run --rm -it --name $(image) --net host $(tag) -t 5 -l 10 -v 1 -p 5553 $(dnsServer)
 	echo next you should run: make dnsdist
 
 dnsdist:
@@ -32,7 +32,7 @@ coretcp:
 	docker run --rm -it --name $(image) --net host $(tag) -t 5 -l 10 -v 1 -p 9963 $(dnsProxy)
 	
 test:
-	dig +short @$(dnsServer) server.test.com
+	dig +short @$(dnsServer) -p 5553 server.test.com
 	dig +short @$(dnsProxy) -p 9953 coredns.test.com
 	dig +short @$(dnsProxy) -p 9963 coretcp.test.com
 	dig +short @$(dnsProxy) -p 9973 dnsdist.test.com

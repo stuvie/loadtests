@@ -8,6 +8,6 @@ services:
     volumes:
       - ./data:/data
     ports:
-      - "53:53"
+      - "5553:53"
       # - "10000:10000"
-      - "53:53/udp"
+      - "5553:53/udp"

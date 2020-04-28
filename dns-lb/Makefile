@@ -25,7 +25,7 @@ diag:
 	open http://localhost:9961/health
 
 test:
-	dig +short @$(dnsServer) server.test.com
+	dig +short @$(dnsServer) -p 5553 server.test.com
 	dig +short @$(dnsProxy) -p 9953 coredns.test.com
 	dig +short @$(dnsProxy) -p 9963 coretcp.test.com
 	dig +short @$(dnsProxy) -p 9973 dnsdist.test.com
