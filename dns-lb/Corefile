@@ -11,5 +11,6 @@
      errors
      # log
      whoami
+     chaos
      health :8081
  }

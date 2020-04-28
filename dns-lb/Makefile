@@ -30,6 +30,9 @@ test:
 	dig +short @$(dnsProxy) -p 9963 coretcp.test.com
 	dig +short @$(dnsProxy) -p 9973 dnsdist.test.com
 	dig +short @$(dnsProxy) -p 9983 dnsdistpp.test.com
+	dig +short @$(dnsProxy) -p 9953 version.bind txt chaos
+	dig +short @$(dnsProxy) -p 9963 version.bind txt chaos
+	dig +short @$(dnsProxy) -p 9973 version.bind txt chaos
 
 push:
 	docker image push $(tag)

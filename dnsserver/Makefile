@@ -26,6 +26,7 @@ run:
 test:
 	dig +short @pie -p 5553 server.test.com
 	dig +short @pie -p 5553 dnsdistpp.test.com
+	dig +short @pie -p 5553 version.bind txt chaos
 
 push:
 	docker image push $(tag)

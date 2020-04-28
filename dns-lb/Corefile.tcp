@@ -12,5 +12,6 @@
      errors
      # log
      whoami
+     chaos CoreDNS-SDP sk@fywss.com
      health :8081
  }
