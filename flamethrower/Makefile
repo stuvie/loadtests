@@ -40,12 +40,18 @@ test:
 	echo next you should run: make flametest
 
 resperf:
+	echo server on ops test:
+	resperf -d queryfile -s $(dnsProxy) -p 5553
 	echo server test:
-	resperf -s $(dnsServer) -p 5553 -d queryfile
+	resperf -d queryfile -s $(dnsServer) -p 5553
 	echo coredns test:
-	resperf -s $(dnsProxy) -p 9953 -d queryfile
+	resperf -d queryfile -s $(dnsProxy) -p 9953
+	echo coredns TCP test:
+	resperf -d queryfile -s $(dnsProxy) -p 9963
 	echo dnsdist test:
-	resperf -s $(dnsProxy) -p 9973 -d queryfile
+	resperf -d queryfile -s $(dnsProxy) -p 9973
+	echo dnsdist ProxyProtocol test:
+	resperf -d queryfile -s $(dnsProxy) -p 9983
 
 flametest:
 	docker run --rm -it --name $(image) -v `pwd`/data:/data --net host $(tag) -t 5 -q 1 -n 1 -c 1 -v 3 -p 9953 $(dnsProxy) -f /data/queries
