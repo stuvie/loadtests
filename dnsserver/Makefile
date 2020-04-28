@@ -2,11 +2,20 @@ SHELL=/bin/sh
 
 org=stuvie
 image=bind9
-rel=latest
+rel=1.0
 tag=$(org)/$(image):$(rel)
 
 default:
 	@ echo targets are: build, run, test, push, help, clean
+
+buildx:
+	docker buildx ls
+	# docker buildx create --name mybuilder
+	docker buildx use mybuilder
+	docker buildx inspect --bootstrap
+	docker buildx ls
+	docker buildx build --platform linux/amd64,linux/arm/v7 -t $(tag) --push .
+	docker buildx imagetools inspect $(tag)
 
 build:
 	docker build --network host -t $(tag) -f Dockerfile .

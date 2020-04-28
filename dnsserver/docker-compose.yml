@@ -1,7 +1,7 @@
 version: '3'
 services:
   dnsserver:
-    image: "stuvie/bind9"
+    image: "stuvie/bind9:1.0"
     container_name: dnsserver
     environment:
       PASS: "cool"
