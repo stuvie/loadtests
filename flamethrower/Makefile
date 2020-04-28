@@ -39,6 +39,14 @@ test:
 	dig +short @$(dnsProxy) -p 9983 dnsdistpp.test.com
 	echo next you should run: make flametest
 
+resperf:
+	echo server test:
+	resperf -s $(dnsServer) -p 5553 -d queryfile
+	echo coredns test:
+	resperf -s $(dnsProxy) -p 9953 -d queryfile
+	echo dnsdist test:
+	resperf -s $(dnsProxy) -p 9973 -d queryfile
+
 flametest:
 	docker run --rm -it --name $(image) -v `pwd`/data:/data --net host $(tag) -t 5 -q 1 -n 1 -c 1 -v 3 -p 9953 $(dnsProxy) -f /data/queries
 	docker run --rm -it --name $(image) -v `pwd`/data:/data --net host $(tag) -t 5 -q 1 -n 1 -c 1 -v 3 -p 9963 $(dnsProxy) -f /data/queries
