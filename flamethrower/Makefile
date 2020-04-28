@@ -39,7 +39,15 @@ test:
 	dig +short @$(dnsProxy) -p 9983 dnsdistpp.test.com
 	echo next you should run: make flametest
 
-resperf:
+queryfile:
+	cp t q
+	cat q q q q q q q q q q > qq
+	cp qq q
+	cat q q q q q q q q q q > qq
+	cp qq queryfile
+	rm q qq
+
+resperf: queryfile
 	echo server on ops test:
 	resperf -d queryfile -s $(dnsProxy) -p 5553
 	echo server test:
@@ -65,4 +73,5 @@ help:
 	docker run --rm -it --name $(image) --net host $(tag) --help
 
 clean:
-	docker run --rm -it --name $(image) --net host $(tag)
+	rm -f q qq queryfile
+	# docker run --rm -it --name $(image) --net host $(tag)
