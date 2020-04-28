@@ -7,7 +7,7 @@ tag=$(org)/$(image):$(rel)
 
 dnsServer=localhost
 dnsProxy=localhost
-dnsServer=pie
+dnsServer=fw
 dnsProxy=ops
 
 default:
