@@ -24,7 +24,8 @@ run:
 	docker-compose up
 
 test:
-	dig +short @localhost -p 5553 server.test.com
+	dig +short @pie -p 5553 server.test.com
+	dig +short @pie -p 5553 dnsdistpp.test.com
 
 push:
 	docker image push $(tag)

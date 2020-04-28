@@ -41,7 +41,7 @@ services:
       - "9973:53/udp"
       - "8870:80"
 
-  dnsdist:
+  dnsdistproxy:
     image: "uniplug/dnsdist-docker"
     container_name: dnsdistproxy
     tty: true
