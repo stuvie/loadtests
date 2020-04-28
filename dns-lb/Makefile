@@ -7,7 +7,7 @@ tag=$(org)/$(image):$(rel)
 
 dnsServer=localhost
 dnsProxy=localhost
-dnsServer=fw
+dnsServer=pie
 dnsProxy=ops
 
 default:
@@ -29,6 +29,7 @@ test:
 	dig +short @$(dnsProxy) -p 9953 coredns.test.com
 	dig +short @$(dnsProxy) -p 9963 coretcp.test.com
 	dig +short @$(dnsProxy) -p 9973 dnsdist.test.com
+	dig +short @$(dnsProxy) -p 9983 dnsdistpp.test.com
 
 push:
 	docker image push $(tag)

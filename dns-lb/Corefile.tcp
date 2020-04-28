@@ -2,8 +2,7 @@
      xpf {
          rr_type 65422
      }
-     # forward . 10.20.0.1:5553 {
-     forward . 10.20.1.26:5553 {
+     forward . 10.20.20.2:5553 {
         force_tcp
  	    # note that max_fails=0 disables health checking of the downstream DNS server
  	    max_fails 0

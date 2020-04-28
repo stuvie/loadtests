@@ -34,9 +34,23 @@ services:
     environment:
       PASS: "cool"
     volumes:
-      - ./dnsdist.conf:/etc/dnsdist/dnsdist.conf
-      # - ./dnsdist.ops:/etc/dnsdist/dnsdist.conf
+      # - ./dnsdist.conf:/etc/dnsdist/dnsdist.conf
+      - ./dnsdist.ops:/etc/dnsdist/dnsdist.conf
     ports:
       - "9973:53"
       - "9973:53/udp"
       - "8870:80"
+
+  dnsdist:
+    image: "uniplug/dnsdist-docker"
+    container_name: dnsdistproxy
+    tty: true
+    stdin_open: true
+    environment:
+      PASS: "cool"
+    volumes:
+      - ./dnsdist.proxy:/etc/dnsdist/dnsdist.conf
+    ports:
+      - "9983:53"
+      - "9983:53/udp"
+      - "8880:80"
