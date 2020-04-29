@@ -1,7 +1,0 @@
-newServer{address="10.20.20.2:5553", order=1, addXPF=65422}
-
-setServerPolicy(firstAvailable)
-
-setLocal('0.0.0.0')
-
-webserver("0.0.0.0:80", "dns")
