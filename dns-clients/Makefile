@@ -16,7 +16,7 @@ default:
 build:
 	docker build --network host -t $(tag) -f Dockerfile .
 
-run:
+flamethrower:
 	docker run --rm -it --name $(image) --net host $(tag) -t 5 -l 10 -v 1 -p 5553 $(dnsServer)
 	echo next you should run: make dnsdist
 
